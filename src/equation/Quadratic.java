@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Quadratic extends Equation {
-    static class Pair <T> {
+    public static class Pair <T> {
         public final T x1;
         public final T x2;
 

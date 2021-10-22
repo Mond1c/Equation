@@ -10,6 +10,6 @@ public class Linear extends Equation {
         for (variableToken.Token token : variables) {
             left += token.getFactor();
         }
-        return (T)((Double)(right / left));
+        return (T)(new Quadratic.Pair<Double>(right / left, 0.0));
     }
 }

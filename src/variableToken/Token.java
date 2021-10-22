@@ -10,6 +10,12 @@ public abstract class Token {
     public double getFactor() {
         return token.calculate();
     }
+
+    public Token mul(double coff) {
+        token.mul(coff);
+        return this;
+    }
+
     public Token changeSign() {
         token.changeSign();
         return this;
