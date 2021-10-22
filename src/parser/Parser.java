@@ -11,14 +11,19 @@ public class Parser {
 
     private static Linear parse(String[] expression) {
         Linear linear = new Linear();
+        boolean left = true;
         for (String s : expression) {
             if (s.equals("=")) {
+                left = false;
                 continue;
             }
             if (s.contains("x")) {
-                linear.add(new variableToken.Linear(
-                        new constToken.Number(Integer.parseInt(s.substring(0, s.indexOf('x'))))));
-            } else linear.add(new constToken.Number(Integer.parseInt(s)));
+                if (!left) linear.add(VariableTokenParser.parse(s).changeSign());
+                else linear.add(VariableTokenParser.parse(s));
+            } else {
+                if (left) linear.add(ConstTokenParser.parse(s).changeSign());
+                else linear.add(ConstTokenParser.parse(s));
+            }
         }
         return linear;
     }

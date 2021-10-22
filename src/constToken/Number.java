@@ -1,7 +1,7 @@
 package constToken;
 
 public class Number extends Token {
-    private double number;
+    private final double number;
 
     public Number(double number) {
         this.number = number;
@@ -9,6 +9,6 @@ public class Number extends Token {
 
     @Override
     public double calculate() {
-        return number;
+        return sign * number;
     }
 }
