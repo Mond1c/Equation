@@ -9,6 +9,12 @@ import java.util.Stack;
 import java.util.List;
 
 public class Parser {
+    private static List<String> functions = new ArrayList<>();
+
+    static {
+        functions.add("sqrt");
+    }
+
     public static class Pair {
         List<variableToken.Token> first;
         List<constToken.Token> second;
@@ -21,8 +27,15 @@ public class Parser {
 
     public static Equation parse(String expression) {
         String[] strings = expression.split(" ");
-        if (expression.contains("^")) return parseQuadratic(strings);
+        if (expression.contains("x^")) return parseQuadratic(strings);
         return parseLinear(strings);
+    }
+
+    private static boolean isFunction(String s) {
+        for (String function : functions) {
+            if (s.contains(function)) return true;
+        }
+        return false;
     }
 
     private static Pair getTokens(String[] expression) {
@@ -35,15 +48,15 @@ public class Parser {
                 left = false;
                 continue;
             }
-            if (s.contains("(")) {
+            if (s.contains("(") && !isFunction(s)) {
                 String str = s.substring(0, s.indexOf('('));
                 if (str.isEmpty()) str = "1";
                 else if (str.equals("-")) str = "-1";
-                stack.add(Double.parseDouble(str));
+                stack.add(ConstTokenParser.parse(str).calculate());
                 continue;
             }
 
-            if (s.contains(")")) {
+            if (s.contains(")") && !isFunction(s)) {
                 stack.pop();
                 continue;
             }

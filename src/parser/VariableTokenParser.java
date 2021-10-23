@@ -1,5 +1,6 @@
 package parser;
 
+import variableToken.Irrational;
 import variableToken.Linear;
 import variableToken.Quadratic;
 import variableToken.Token;
@@ -22,5 +23,10 @@ public class VariableTokenParser {
         if (s.isEmpty()) s = "1";
         else if (s.equals("-")) s = "-1";
         return new Quadratic(ConstTokenParser.parse(s));
+    }
+
+    private static Irrational parseIrrational(String expression) {
+        String s = expression.substring(expression.indexOf('(') + 1, expression.indexOf(')'));
+        return new Irrational(ConstTokenParser.parse(s));
     }
 }
